@@ -1,4 +1,5 @@
-﻿using DomeGym.Domain.UnitTests.TestConstants;
+﻿using DomeGym.Domain.TrainerAggregate;
+using DomeGym.Domain.UnitTests.TestConstants;
 using DomeGym.Domain.UnitTests.TestUtils.Common;
 using DomeGym.Domain.UnitTests.TestUtils.Sessions;
 using DomeGym.Domain.UnitTests.TestUtils.Trainers;

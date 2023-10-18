@@ -1,27 +1,26 @@
-﻿using ErrorOr;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.RoomAggergate;
+using ErrorOr;
 
-namespace DomeGym.Domain;
-public class Gym
+namespace DomeGym.Domain.GymAggregate;
+public class Gym : AggregateRoot
 {
     private readonly Guid _subscriptionId;
-    private readonly int _maxRooms;    
+    private readonly int _maxRooms;
     private readonly List<Guid> _roomIds = new();
-
-    public Guid Id { get; }
-
+        
     public Gym(
         int maxRooms,
         Guid subscriptionId,
-        Guid? id = null)
+        Guid? id = null) : base(id ?? Guid.NewGuid())
     {
         _maxRooms = maxRooms;
-        _subscriptionId = subscriptionId;
-        Id = id ?? Guid.NewGuid();
+        _subscriptionId = subscriptionId;        
     }
 
     public ErrorOr<Success> AddRoom(Room room)
     {
-        if(_roomIds.Contains(room.Id))
+        if (_roomIds.Contains(room.Id))
         {
             return Error.Conflict(description: "Room already exists in gym");
         }

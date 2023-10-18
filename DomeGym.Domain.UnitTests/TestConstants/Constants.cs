@@ -1,4 +1,7 @@
-﻿namespace DomeGym.Domain.UnitTests.TestConstants;
+﻿using DomeGym.Domain.Common.ValueObjects;
+using DomeGym.Domain.SubscriptionAggregate;
+
+namespace DomeGym.Domain.UnitTests.TestConstants;
 public static class Constants
 {
     public static class Session

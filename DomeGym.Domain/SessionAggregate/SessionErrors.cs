@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace DomeGym.Domain;
+namespace DomeGym.Domain.SessionAggregate;
 public static class SessionErrors
 {
     public readonly static Error CannotHaveMoreReservationThanParticipants = Error.Validation(
@@ -9,5 +9,5 @@ public static class SessionErrors
 
     public readonly static Error CannotCancelReservationTooCloseToSession = Error.Validation(
         code: "Session.CannotCancelReservationTooCloseToSession",
-        description: "Cannot cancel reservation too close to session");    
+        description: "Cannot cancel reservation too close to session");
 }

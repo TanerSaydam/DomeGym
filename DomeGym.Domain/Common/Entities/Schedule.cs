@@ -1,17 +1,16 @@
-﻿using ErrorOr;
+﻿using DomeGym.Domain.Common.ValueObjects;
+using ErrorOr;
 
-namespace DomeGym.Domain;
-public class Schedule
+namespace DomeGym.Domain.Common.Entities;
+public class Schedule : Entity
 {
-    private readonly Dictionary<DateOnly, List<TimeRange>> _calendar = new();
-    private readonly Guid _id;
+    private readonly Dictionary<DateOnly, List<TimeRange>> _calendar = new();    
 
     public Schedule(
         Dictionary<DateOnly, List<TimeRange>>? calendar = null,
-        Guid? id = null)
+        Guid? id = null): base(id ?? Guid.NewGuid())
     {
         _calendar = calendar ?? new();
-        _id = id ?? Guid.NewGuid();
     }
 
     public static Schedule Empty()
@@ -21,7 +20,7 @@ public class Schedule
 
     internal bool CanBookTimeSlot(DateOnly date, TimeRange time)
     {
-        if(!_calendar.TryGetValue(date, out var timeRanges))
+        if (!_calendar.TryGetValue(date, out var timeRanges))
         {
             return true;
         }
@@ -31,13 +30,13 @@ public class Schedule
 
     internal ErrorOr<Success> BookTimeSlot(DateOnly date, TimeRange time)
     {
-        if(!_calendar.TryGetValue(date, out var timeSlots))
+        if (!_calendar.TryGetValue(date, out var timeSlots))
         {
             _calendar[date] = new() { time };
             return Result.Success;
         }
 
-        if(timeSlots.Any(timeSlot => timeSlot.OverlapsWith(time)))
+        if (timeSlots.Any(timeSlot => timeSlot.OverlapsWith(time)))
         {
             return Error.Conflict();
         }
@@ -48,18 +47,16 @@ public class Schedule
 
     internal ErrorOr<Success> RemoveBooking(DateOnly date, TimeRange time)
     {
-        if(!_calendar.TryGetValue(date, out var timeSlots) || !timeSlots.Contains(time))
+        if (!_calendar.TryGetValue(date, out var timeSlots) || !timeSlots.Contains(time))
         {
             return Error.NotFound(description: "Booking not found"); ;
         }
 
-        if(!timeSlots.Remove(time))
+        if (!timeSlots.Remove(time))
         {
             return Error.Unexpected();
         }
 
         return Result.Success;
     }
-
-    private Schedule() { }
 }

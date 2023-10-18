@@ -1,25 +1,26 @@
-﻿using ErrorOr;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.Common.Entities;
+using DomeGym.Domain.SessionAggregate;
+using ErrorOr;
 
-namespace DomeGym.Domain;
-public class Participant
+namespace DomeGym.Domain.ParticipantAggregate;
+public class Participant : AggregateRoot
 {
     private readonly Schedule _schedule = Schedule.Empty();
 
     private readonly Guid _userId;
     private readonly List<Guid> _sessionIds = new();
-    public Guid Id { get; }
 
     public Participant(
         Guid userId,
-        Guid? id = null)
+        Guid? id = null) : base(id ?? Guid.NewGuid())
     {
-        _userId = userId;        
-        Id = id ?? Guid.NewGuid();
+        _userId = userId;
     }
 
     public ErrorOr<Success> AddToSchedule(Session session)
     {
-        if(_sessionIds.Contains(session.Id))
+        if (_sessionIds.Contains(session.Id))
         {
             return Error.Conflict(description: "Session already exists in participant's schedule");
         }
@@ -39,5 +40,5 @@ public class Participant
         return Result.Success;
     }
 
-    
+
 }

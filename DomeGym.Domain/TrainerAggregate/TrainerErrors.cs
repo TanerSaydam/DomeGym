@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomeGym.Domain;
+namespace DomeGym.Domain.TrainerAggregate;
 public static class TrainerErrors
 {
     public static readonly Error CannotHaveTwoOrMoreOverlappingSessions = Error.Validation(

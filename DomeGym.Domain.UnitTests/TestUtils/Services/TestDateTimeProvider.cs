@@ -1,4 +1,6 @@
-﻿namespace DomeGym.Domain.UnitTests.TestUtils.Services;
+﻿using DomeGym.Domain.Common.Interfaces;
+
+namespace DomeGym.Domain.UnitTests.TestUtils.Services;
 public class TestDateTimeProvider : IDateTimeProvider
 {
     private readonly DateTime? _fixedDateTime;

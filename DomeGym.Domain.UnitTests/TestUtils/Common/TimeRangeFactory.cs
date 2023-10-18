@@ -1,4 +1,5 @@
-﻿using Throw;
+﻿using DomeGym.Domain.Common.ValueObjects;
+using Throw;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Common;
 public static class TimeRangeFactory

@@ -1,0 +1,22 @@
+Strategic Design
+- Context Mapping
+- Customer/Supplier Development
+- Anticorruption Layer
+- Separeted Ways
+
+Tactical Pattern
+- Entities
+- Value Objects
+- Domain Events
+- Domain Services
+- Repositories
+- Aggregates
+- Factories
+
+Noteworthy Pattern
+- Modules
+- Aplication Services
+- Bounded Contexts
+- Ubiquitous Language
+
+Domain Values = Entities or Value Objects

@@ -1,9 +1,10 @@
-﻿using ErrorOr;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.GymAggregate;
+using ErrorOr;
 
-namespace DomeGym.Domain;
-public class Subscription
+namespace DomeGym.Domain.SubscriptionAggregate;
+public class Subscription : AggregateRoot
 {
-    private readonly Guid _id;
     private readonly List<Guid> _gymIds = new();
     private readonly SubscriptionType _subscriptionType;
     private readonly int _maxGyms;
@@ -12,12 +13,11 @@ public class Subscription
     public Subscription(
         SubscriptionType subscriptionType,
         Guid adminId,
-        Guid? id= null)
+        Guid? id = null): base(id ?? Guid.NewGuid())
     {
         _subscriptionType = subscriptionType;
         _maxGyms = GetMaxGyms();
         _adminId = adminId;
-        _id = id ?? Guid.NewGuid();
     }
 
     public int GetMaxGyms() => _subscriptionType.Name switch
@@ -51,7 +51,7 @@ public class Subscription
             return Error.Conflict(description: "Gym already exists");
         }
 
-        if(_gymIds.Count >= _maxGyms)
+        if (_gymIds.Count >= _maxGyms)
         {
             return SubscriptionErrors.CannotHaveMoreGymsThanSubscriptionAllows;
         }
